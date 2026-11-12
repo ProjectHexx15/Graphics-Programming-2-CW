@@ -10,6 +10,24 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="obj_loader.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="obj_loader.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}</ProjectGuid>
     <RootNamespace>Lab1</RootNamespace>
@@ -70,38 +88,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Display.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainGame.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="obj_loader.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="stb_image.c" />
-    <ClCompile Include="Texture.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Display.h" />
-    <ClInclude Include="MainGame.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="obj_loader.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="transform.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\res\ADS.frag" />
-    <None Include="..\res\ADS.vert" />
-    <None Include="..\res\shader.frag" />
-    <None Include="..\res\shader.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\res\monkey3.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </Object>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

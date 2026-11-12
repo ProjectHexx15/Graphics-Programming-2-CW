@@ -1,10 +1,10 @@
 #include <iostream>
-#include "MainGame.h"
+#include "Application.h"
 
-int main(int argc, char** argv) //argument used to call SDL main
+int main(int argc, char** argv)
 {
-	MainGame mainGame;
-	mainGame.run();
+	Application app;
+	app.Run();
 
 	return 0;
 }
