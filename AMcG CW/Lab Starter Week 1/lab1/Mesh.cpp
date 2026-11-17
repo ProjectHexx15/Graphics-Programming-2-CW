@@ -12,6 +12,5 @@ Mesh::~Mesh()
 
 void Mesh::Draw() const
 {
-	// bind vao
-	// draw mesh
+
 }

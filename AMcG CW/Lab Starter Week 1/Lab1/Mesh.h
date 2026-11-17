@@ -1,13 +1,13 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include <glm/glm.hpp>
 
 #include "obj_loader.h"
-//#include "VertexArray.h"
-//#include "VertexBuffer.h"
-//#include "IndexBuffer.h"
+#include "Buffer.h"
+
 
 struct Vertex
 {
@@ -31,12 +31,12 @@ public:
 	const std::vector<unsigned int>& GetIndices() const;
 
 private:
+	VertexArrayObject VAO;
+	VertexBufferObject VBO;
+	IndexBufferObject EBO;
+
 	std::vector<Vertex> _vertices;
 	std::vector<unsigned int> _indices;
 
 	void SetUpMesh();
-
-	// vao
-	// vbo
-	// ebo
 };
