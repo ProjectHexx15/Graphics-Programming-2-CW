@@ -1,26 +1,38 @@
 #pragma once
-#include <iostream>
-#include "Window.h"
+
+#include <memory>
+
+class Window;
+class Scene;
 
 
 class Application
 {
 
+private:
+	std::unique_ptr<Window> _window;
+	Scene* _scene =  nullptr;
+
+	bool _isRunning;
+
+	float _deltaTime = 0.0f;
+
+
 public:
 	Application();
 	~Application();
-	void Run();
-	bool IsRunning() const { return _isRunning; }
 
-private:
+
 	void Init();
-	void Update();
-	void Input();
-	void PreDraw();
-	void Draw();
-	void Render();
+	void Run();
 	void Shutdown();
 
-	bool _isRunning = true;
+	void Input();
+	void Update();
+	void Render();
 
+	Window* GetWindow() const;
+
+	bool IsRunning() const;
+	void Stop();
 };

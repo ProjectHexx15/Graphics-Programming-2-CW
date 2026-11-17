@@ -1,8 +1,10 @@
 #pragma once
-#include <SDL/SDL.h>
-#include <GL/glew.h>
+
 #include <iostream>
 #include <string>
+#include <SDL/SDL.h>
+#include <GL/glew.h>
+
 
 class Window
 {
@@ -11,14 +13,26 @@ public:
     ~Window();
 
     void PollEvents();
-	void Init();
-	void SetAttributes();
-	void CreateContext();
-	void InitGlew();
     void SwapBuffers();
+
     bool ShouldClose();
+
+    SDL_Window* GetWindow() const;
+    SDL_GLContext GetContext() const;
+
+    int GetWidth() const;
+    int GetHeight() const;
 
 private:
     SDL_Window* _window;
-	SDL_GLContext _context = nullptr;
+	SDL_GLContext _context;
+
+    int _width;
+    int _height;
+
+    bool _shouldClose = false;
+
+    void SetAttributes();
+    void CreateContext();
+    void InitGlew();
 };
