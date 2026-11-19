@@ -2,6 +2,24 @@
 
 #include <GL/glew.h>
 
+class IndexBufferObject
+{
+public:
+	IndexBufferObject(const unsigned int* indices, unsigned int count);
+	~IndexBufferObject();
+
+	void Bind() const;
+	static void UnBind();
+
+	unsigned int GetCount() const { return count; }
+	unsigned int GetID() const { return id; }
+
+private:
+	unsigned int id = 0;
+	unsigned int count = 0;
+
+};
+
 class VertexBufferObject
 {
 private:
@@ -12,7 +30,7 @@ public:
 	~VertexBufferObject();
 
 	void Bind() const;
-	void UnBind() const;
+	static void UnBind();
 
 	unsigned int GetID() const { return id; }
 
@@ -26,7 +44,7 @@ public:
 	~VertexArrayObject();
 
 	void Bind() const;
-	void UnBind();
+	static void UnBind();
 
 	unsigned int GetID() const { return id; }
 
@@ -38,20 +56,3 @@ private:
 	unsigned int id = 0;
 };
 
-class IndexBufferObject
-{
-public:
-	IndexBufferObject(const unsigned int* indices, unsigned int count);
-	~IndexBufferObject();
-
-	void Bind() const;
-	void UnBind() const;
-
-	unsigned int GetCount() const { return count; }
-	unsigned int GetID() const { return id; }
-
-private:
-	unsigned int id = 0;
-	unsigned int count = 0;
-
-};

@@ -9,12 +9,13 @@ class ShaderLoader
 {
 
 public:
-	static unsigned int LoadShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
-
+	static GLuint LoadShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
 
 private:
-	static std::string ReadFile(const char* path);
-	static unsigned int compileShader(unsigned int type, const char* source);
+	static std::string ReadFile(const std::string& filepath);
+	static GLuint CompileShader(GLenum type, const std::string& source);
+	static unsigned int CompileShader(unsigned int type, const char* source);
+	static void CheckCompileErrors(GLuint object, const std::string& type);
 
 
 };

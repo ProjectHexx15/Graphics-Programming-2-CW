@@ -21,7 +21,7 @@ void VertexBufferObject::Bind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, id);
 }
-void VertexBufferObject::UnBind() const
+void VertexBufferObject::UnBind()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -46,7 +46,7 @@ void IndexBufferObject::Bind() const
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
 }
 
-void IndexBufferObject::UnBind() const
+void IndexBufferObject::UnBind()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }

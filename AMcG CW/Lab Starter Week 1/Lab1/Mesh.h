@@ -1,42 +1,28 @@
 #pragma once
 
-#include <vector>
 #include <memory>
 
-#include <glm/glm.hpp>
-
-#include "obj_loader.h"
 #include "Buffer.h"
-
-
-struct Vertex
-{
-	glm::vec3 Position;
-	glm::vec2 TexCoord;
-	glm::vec3 Normal;
-};
+#include "obj_loader.h"
 
 class Mesh
 {
-
 public:
-	Mesh() = default;
+    Mesh();
+    explicit Mesh(const IndexedModel& model);
+    ~Mesh();
 
-	explicit Mesh(const IndexedModel& model);
-	~Mesh();
-
-	void Draw() const;
-
-	const std::vector<Vertex>& GetVertices() const;
-	const std::vector<unsigned int>& GetIndices() const;
+    void Draw() const;
+    void LoadModel(const std::string& filename);
 
 private:
-	VertexArrayObject VAO;
-	VertexBufferObject VBO;
-	IndexBufferObject EBO;
+    void InitModel(const IndexedModel& model);
 
-	std::vector<Vertex> _vertices;
-	std::vector<unsigned int> _indices;
+private:
+    VertexArrayObject _vao;
 
-	void SetUpMesh();
+    std::unique_ptr<VertexBufferObject> _vbo;
+    std::unique_ptr<IndexBufferObject> _ibo;
+
+    unsigned int _indexCount = 0;
 };

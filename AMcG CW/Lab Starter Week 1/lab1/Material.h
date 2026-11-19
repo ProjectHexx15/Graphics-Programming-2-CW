@@ -1,21 +1,25 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include <memory>
 
-class Shader;
-class Texture;
+#include "Shader.h"
+#include "Texture.h"
 
 class Material
 {
 public:
-	Material();
-	Material(Shader* shader, Texture* texture);
-	void Bind() const;
 
+    Material(std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture = nullptr);
+
+    void Bind() const;
+
+    std::shared_ptr<Shader> GetShader() const
+    {
+        return _shader;
+    }
 
 private:
-	Shader* _shader;
-	Texture* _texture;
 
-	glm::vec3 _colour;
+    std::shared_ptr<Shader> _shader;
+    std::shared_ptr<Texture> _texture;
 };
