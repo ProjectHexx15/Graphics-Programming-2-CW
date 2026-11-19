@@ -2,6 +2,7 @@
 #include <string>
 
 #include "Model.h"
+#include "obj_loader.h"
 
 class ObjectLoader
 {

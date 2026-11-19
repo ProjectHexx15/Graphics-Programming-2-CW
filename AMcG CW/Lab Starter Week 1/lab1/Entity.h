@@ -1,27 +1,28 @@
 #pragma once
 
-#include "glm/glm.hpp"
+#include <memory>
 
-class Model;
-class Material;
+#include "Camera.h"
+#include "Transform.h"
+#include "Model.h"
+#include "Material.h"
+
+class Camera;
 
 class Entity
 {
 public:
-	Entity();
 
-	virtual void Update(float deltaTime);
-	virtual void Render();
+    Entity(std::shared_ptr<Model> model, std::shared_ptr<Material> material);
 
-	void SetModel(Model* model);
-	void SetMaterial(Material* material);
+    Transform& GetTransform();
 
-protected:
-	glm::vec3 position;
-	glm::vec3 rotation;
-	glm::vec3 scale;
+    void Draw(const Camera& camera) const;
 
-	Model* model;
-	Material* material;
+private:
 
+    Transform _transform;
+
+    std::shared_ptr<Model> _model;
+    std::shared_ptr<Material> _material;
 };

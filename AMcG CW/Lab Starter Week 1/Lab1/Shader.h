@@ -1,3 +1,4 @@
+#pragma once
 #include <GL/glew.h>
 #include <string>
 
@@ -6,10 +7,7 @@
 class Shader
 {
 public:
-    Shader(
-        const char* vertexPath,
-        const char* fragmentPath,
-        const char* geometryPath = nullptr);
+    Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
 
     ~Shader();
 
@@ -20,13 +18,9 @@ public:
 
     void SetUniform1f(const std::string& name, float value) const;
 
-    void SetUniformVec3(
-        const std::string& name,
-        const glm::vec3& value) const;
+    void SetUniformVec3(const std::string& name, const glm::vec3& value) const;
 
-    void SetUniformMat4(
-        const std::string& name,
-        const glm::mat4& value) const;
+    void SetUniformMat4(const std::string& name, const glm::mat4& value) const;
 
     GLuint GetID() const
     {
@@ -34,8 +28,7 @@ public:
     }
 
 private:
-    GLint GetUniformLocation(
-        const std::string& name) const;
+    GLint GetUniformLocation(const std::string& name) const;
 
 private:
     GLuint _ID = 0;

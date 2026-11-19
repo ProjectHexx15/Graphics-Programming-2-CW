@@ -1,14 +1,4 @@
 #include "Scene.h"
-#include "Camera.h"
-#include "Shader.h"
-#include "Mesh.h"
-#include "ObjectLoader.h"
-#include <iostream>
-
-#include <GL/glew.h>
-
-std::shared_ptr<Shader> shader;
-Model testModel;
 
 
 Scene::Scene()
@@ -23,20 +13,26 @@ Scene::~Scene()
 
 void Scene::Init()
 {
-	std::cout << "Scene Init" << std::endl;
+    std::cout << "Scene Init" << std::endl;
 
-	_camera = std::make_shared<Camera>(
-		10.0f,
-		1280.0f / 720.0f);
+    _camera = std::make_shared<Camera>(10.0f, 1280.0f / 720.0f);
 
-	shader = std::make_shared<Shader>("..\\Assets\\Shaders\\test.vert", "..\\Assets\\Shaders\\test.frag");
+   // shader = std::make_shared<Shader>("..\\Assets\\Shaders\\test.vert", "..\\Assets\\Shaders\\test.frag");
+    ResourceManager::LoadShader("shader", "..\\Assets\\Shaders\\test.vert", "..\\Assets\\Shaders\\test.frag");
 
-	std::cout << "Shader Created" << std::endl;
+    material = std::make_shared<Material>(shader);
+    ResourceManager::AddMaterial("TreeMaterial", material);
 
-	testModel = ObjectLoader::LoadObj("..\\Assets\\Objects\\tree.obj");
+    auto model = std::make_shared<Model>(ObjectLoader::LoadObj("..\\Assets\\Objects\\tree.obj"));
 
-	std::cout << "Model Loaded" << std::endl;
+    tree = std::make_shared<Entity>(model, material);
 
+    AddEntity(tree);
+
+    tree->GetTransform().SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
+    tree->GetTransform().SetScale(glm::vec3(5.0f));
+
+    std::cout << "Scene Loaded" << std::endl;
 }
 
 void Scene::Update(float deltaTime)
@@ -45,35 +41,28 @@ void Scene::Update(float deltaTime)
 	{
 		_camera->Update(deltaTime);
 	}
+
+    static float angle = 0.0f;
+
+    angle += 50.0f * deltaTime;
+
+    tree->GetTransform().SetRot(glm::vec3(0.0f, angle, 0.0f));
 }
 
 void Scene::Render()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    if (!_camera)
+    {
+        return;
+    }
 
-	shader->bind();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	static float angle = 0.0f;
-	angle += 0.01f;
+    for (const auto& entity : _entitties)
+    {
+        entity->Draw(*_camera);
+    }
 
-	glm::mat4 model =
-		glm::rotate(
-			angle,
-			glm::vec3(0, 1, 0));
-
-	shader->SetUniformMat4(
-		"u_Model",
-		model);
-
-	shader->SetUniformMat4(
-		"u_View",
-		_camera->GetView());
-
-	shader->SetUniformMat4(
-		"u_Projection",
-		_camera->GetProjection());
-
-	testModel.Draw();
 }
 
 void Scene::AddEntity(std::shared_ptr<Entity> entity)
@@ -98,10 +87,10 @@ std::shared_ptr<Camera> Scene::GetCamera() const
 
 void Scene::SetSkybox(std::shared_ptr<Skybox> skybox)
 {
-	_skybox = skybox;
+	//_skybox = skybox;
 }
 
 void Scene::SetParticleEmitter(std::shared_ptr<ParticleEmitter> emitter)
 {
-	_particleEmitter = emitter;
+	//_particleEmitter = emitter;
 }

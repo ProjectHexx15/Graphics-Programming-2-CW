@@ -3,7 +3,6 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
-
 class Shader;
 class Texture;
 class Model;
@@ -16,7 +15,7 @@ class ResourceManager
 public:
 
 	static Material* GetMaterial(const std::string& name);
-	static void AddMaterial(const std::string& name, Material* material);
+	static void AddMaterial(const std::string& name, std::shared_ptr<Material> material);
 
 	static void LoadShader(const std::string& name, const std::string& vertex, const std::string& fragment);
 	static Shader* GetShader(const std::string& name);

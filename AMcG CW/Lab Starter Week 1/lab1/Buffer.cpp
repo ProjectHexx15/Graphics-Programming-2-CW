@@ -1,7 +1,5 @@
 #include "Buffer.h"	
 
-#include <GL/glew.h>
-
 VertexBufferObject::VertexBufferObject(const void* data, size_t size)
 {
 	glCreateBuffers(1, &id);

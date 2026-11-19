@@ -1,7 +1,5 @@
 #include "ObjectLoader.h"
 
-#include "obj_loader.h"
-#include "Mesh.h"
 
 Model ObjectLoader::LoadObj(const std::string& filepath)
 {

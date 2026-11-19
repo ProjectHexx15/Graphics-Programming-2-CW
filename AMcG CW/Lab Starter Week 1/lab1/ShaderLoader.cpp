@@ -6,10 +6,7 @@ std::string ShaderLoader::ReadFile(const std::string& filepath)
 
     if (!file.is_open())
     {
-        std::cerr
-            << "Failed to open shader file: "
-            << filepath
-            << std::endl;
+        std::cerr << "Failed to open shader file: " << filepath << std::endl;
 
         return "";
     }
@@ -36,15 +33,15 @@ GLuint ShaderLoader::CompileShader(GLenum type, const std::string& source)
     {
     case GL_VERTEX_SHADER:
         CheckCompileErrors(shader, "VERTEX");
-            break;
+        break;
 
     case GL_FRAGMENT_SHADER:
         CheckCompileErrors(shader, "FRAGMENT");
-            break;
+        break;
 
     case GL_GEOMETRY_SHADER:
         CheckCompileErrors(shader, "GEOMETRY");
-            break;
+        break;
 
     }
 
