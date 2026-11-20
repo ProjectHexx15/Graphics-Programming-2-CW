@@ -1,4 +1,7 @@
 #include "Mesh.h"
+#include <iostream>
+
+// geometry of an object
 
 struct MeshVertex
 {
@@ -65,6 +68,8 @@ void Mesh::InitModel(const IndexedModel& model)
 
 void Mesh::Draw() const
 {
+    std::cout << "Indices: " << _indexCount << std::endl;
+
     _vao.Bind();
 
     glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_INT, nullptr);

@@ -1,5 +1,6 @@
 #include "ObjectLoader.h"
 
+// loads object assets and creates models for the engine
 
 Model ObjectLoader::LoadObj(const std::string& filepath)
 {

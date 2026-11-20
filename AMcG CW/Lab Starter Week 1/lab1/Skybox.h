@@ -1,23 +1,33 @@
-#pragma once
-
+#include <memory>
 #include <vector>
 #include <string>
 
+#include <GL/glew.h>
+
 class Shader;
+class Camera;
 
 class Skybox
 {
 public:
-	Skybox(const std::vector<std::string>& faces, Shader* shader);
 
-	void Draw();
+    Skybox(
+        const std::vector<std::string>& faces);
 
+    ~Skybox();
+
+    void Draw(
+        const Camera& camera);
 
 private:
-	unsigned int cubemap;
 
-	unsigned int vao;
-	unsigned int vbo;
+    GLuint _vao;
+    GLuint _vbo;
 
-	Shader* shader;
+    GLuint _cubemap;
+
+    std::shared_ptr<Shader> _shader;
+
+    GLuint LoadCubemap(
+        const std::vector<std::string>& faces);
 };

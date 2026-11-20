@@ -1,5 +1,16 @@
 #include "Scene.h"
 
+#include "Camera.h"
+#include "Shader.h"
+#include "Mesh.h"
+#include "Transform.h"
+#include "Skybox.h"
+#include "Entity.h"
+#include "Material.h"
+#include "ObjectLoader.h"
+#include "ResourceManager.h"
+
+// contains alll renderable objects and resources for the sceen
 
 Scene::Scene()
 {
@@ -13,26 +24,26 @@ Scene::~Scene()
 
 void Scene::Init()
 {
-    std::cout << "Scene Init" << std::endl;
-
     _camera = std::make_shared<Camera>(10.0f, 1280.0f / 720.0f);
+    auto pos = _camera->GetPosition();
 
-   // shader = std::make_shared<Shader>("..\\Assets\\Shaders\\test.vert", "..\\Assets\\Shaders\\test.frag");
     ResourceManager::LoadShader("shader", "..\\Assets\\Shaders\\test.vert", "..\\Assets\\Shaders\\test.frag");
 
-    material = std::make_shared<Material>(shader);
-    ResourceManager::AddMaterial("TreeMaterial", material);
+    ResourceManager::LoadModel("Tree", "..\\Assets\\Objects\\tree.obj");
 
-    auto model = std::make_shared<Model>(ObjectLoader::LoadObj("..\\Assets\\Objects\\tree.obj"));
+    auto shader = ResourceManager::GetShader("shader");
+    std::cout << "Shader ID: " << shader->GetID()<< std::endl;
 
-    tree = std::make_shared<Entity>(model, material);
+    auto material = std::make_shared<Material>(shader);
+    ResourceManager::AddMaterial("TestMaterial",material);
 
-    AddEntity(tree);
+    auto model = ResourceManager::GetModel("Tree");
 
-    tree->GetTransform().SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
-    tree->GetTransform().SetScale(glm::vec3(5.0f));
+    _tree = std::make_shared<Entity>(model, material);
 
-    std::cout << "Scene Loaded" << std::endl;
+    _tree->GetTransform().SetScale(glm::vec3(1.0f));
+
+    AddEntity(_tree);
 }
 
 void Scene::Update(float deltaTime)
@@ -43,26 +54,31 @@ void Scene::Update(float deltaTime)
 	}
 
     static float angle = 0.0f;
-
     angle += 50.0f * deltaTime;
 
-    tree->GetTransform().SetRot(glm::vec3(0.0f, angle, 0.0f));
+    _tree->GetTransform().SetRot(glm::vec3(0.0f, angle, 0.0f));
 }
 
 void Scene::Render()
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     if (!_camera)
     {
         return;
     }
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    if (_skybox)
+    {
+        _skybox->Draw(*_camera);
+    }
 
     for (const auto& entity : _entitties)
     {
         entity->Draw(*_camera);
     }
 
+    std::cout << "Entities: " << _entitties.size() << std::endl;
 }
 
 void Scene::AddEntity(std::shared_ptr<Entity> entity)

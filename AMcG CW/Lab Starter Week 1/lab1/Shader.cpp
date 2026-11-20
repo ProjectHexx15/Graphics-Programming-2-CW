@@ -4,6 +4,8 @@
 #include <iostream>
 #include <glm/gtc/type_ptr.hpp>
 
+// load and binds shader programs and sends uniforms
+
 Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath)
 {
     _ID = ShaderLoader::LoadShader(vertexPath, fragmentPath, geometryPath);

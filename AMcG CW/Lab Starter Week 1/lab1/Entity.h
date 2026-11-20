@@ -2,11 +2,6 @@
 
 #include <memory>
 
-#include "Camera.h"
-#include "Transform.h"
-#include "Model.h"
-#include "Material.h"
-
 class Camera;
 
 class Entity

@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+// manages the creation the SDL window and OpenGL context
+
 Window::Window(int width, int height, const std::string& title) : _window(nullptr), _context(nullptr), _width(width), _height(height), _shouldClose(false)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)

@@ -1,6 +1,11 @@
 #include "Material.h"
 
-Material::Material(std::shared_ptr<Shader> shader): _shader(shader)
+#include "Shader.h"
+#include "Texture.h"
+
+// owns shaders, textures to define how objects should be rendeered
+
+Material::Material(std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture): _shader(shader), _texture(texture)
 {
 
 }
@@ -8,10 +13,16 @@ Material::Material(std::shared_ptr<Shader> shader): _shader(shader)
 void Material::Bind() const
 {
     _shader->bind();
+
+    if (_texture)
+    {
+        _texture->Bind(0);
+        _shader->SetUniform1i("u_Texture", 0);
+    }
+
 }
 
-std::shared_ptr<Shader>
-Material::GetShader() const
+std::shared_ptr<Shader> Material::GetShader() const
 {
     return _shader;
 }

@@ -1,5 +1,9 @@
 #include "ShaderLoader.h"
 
+//  handles the compilation of shaders and linking them
+        // SEPERATES FILE LOADING FROM SHADERS
+
+
 std::string ShaderLoader::ReadFile(const std::string& filepath)
 {
     std::ifstream file(filepath);
