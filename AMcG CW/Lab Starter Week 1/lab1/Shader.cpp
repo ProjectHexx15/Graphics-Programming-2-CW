@@ -8,7 +8,11 @@
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath)
 {
+
     _ID = ShaderLoader::LoadShader(vertexPath, fragmentPath, geometryPath);
+
+    std::cout << "Created Shader program = " << _ID << std::endl;
+
 }
 
 Shader::~Shader()

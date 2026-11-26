@@ -1,33 +1,27 @@
-#include <memory>
-#include <vector>
-#include <string>
+#pragma once
 
-#include <GL/glew.h>
+#include <memory>
 
 class Shader;
 class Camera;
+class EnvironmentMap;
 
 class Skybox
 {
 public:
 
-    Skybox(
-        const std::vector<std::string>& faces);
+    Skybox(std::shared_ptr<EnvironmentMap> environment);
 
     ~Skybox();
 
-    void Draw(
-        const Camera& camera);
+    void Draw(const Camera& camera);
 
 private:
 
-    GLuint _vao;
-    GLuint _vbo;
-
-    GLuint _cubemap;
+    std::shared_ptr<EnvironmentMap> _environment;
 
     std::shared_ptr<Shader> _shader;
 
-    GLuint LoadCubemap(
-        const std::vector<std::string>& faces);
+    unsigned int _vao = 0;
+    unsigned int _vbo = 0;
 };

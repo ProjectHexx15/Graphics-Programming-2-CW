@@ -39,9 +39,7 @@ glm::mat4 Transform::GetModel() const
 {
     glm::mat4 model(1.0f);
 
-    model = glm::scale(
-        model,
-        _scale);
+    model = glm::scale(model, _scale);
 
     return model;
 }

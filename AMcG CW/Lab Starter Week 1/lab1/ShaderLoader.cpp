@@ -35,19 +35,19 @@ GLuint ShaderLoader::CompileShader(GLenum type, const std::string& source)
 
     switch (type)
     {
-    case GL_VERTEX_SHADER:
-        CheckCompileErrors(shader, "VERTEX");
+    case GL_VERTEX_SHADER: CheckCompileErrors(shader, "VERTEX");
         break;
 
-    case GL_FRAGMENT_SHADER:
-        CheckCompileErrors(shader, "FRAGMENT");
+    case GL_FRAGMENT_SHADER: CheckCompileErrors(shader, "FRAGMENT");
         break;
 
-    case GL_GEOMETRY_SHADER:
-        CheckCompileErrors(shader, "GEOMETRY");
+    case GL_GEOMETRY_SHADER: CheckCompileErrors(shader, "GEOMETRY");
         break;
 
     }
+
+    GLint compiled;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
 
     return shader;
 
@@ -81,6 +81,9 @@ GLuint ShaderLoader::LoadShader(const char* vertexPath, const char* fragmentPath
 
     glAttachShader(program, fragmentShader);
     glLinkProgram(program);
+
+    GLint linked;
+    glGetProgramiv(program, GL_LINK_STATUS, &linked);
 
     CheckCompileErrors(program, "PROGRAM");
 

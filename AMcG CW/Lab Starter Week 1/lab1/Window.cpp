@@ -84,24 +84,29 @@ void Window::PollEvents()
 		switch (event.type)
 		{
 		case SDL_QUIT:
-		{
 			_shouldClose = true;
 			break;
-		}
 
 		case SDL_KEYDOWN:
-		{
 			if (event.key.keysym.sym == SDLK_ESCAPE)
 			{
 				_shouldClose = true;
 			}
 			break;
+
+		case SDL_MOUSEMOTION:
+			_mouseDeltaX = event.motion.xrel;
+			_mouseDeltaY = event.motion.yrel;
+			break;
+
+		case SDL_MOUSEWHEEL:
+		{
+			_mouseWheel = event.wheel.y;
+			break;
 		}
 
 		}
 	}
-
-
 }
 
 void Window::SwapBuffers()
@@ -132,4 +137,27 @@ int Window::GetWidth() const
 int Window::GetHeight() const
 {
 	return _height;
+}
+
+int Window::GetMouseDeltaX() 
+{
+	int value = _mouseDeltaX;
+	_mouseDeltaX = 0;
+	return value;
+
+}
+
+int Window::GetMouseDeltaY() 
+{
+	int value = _mouseDeltaY;
+	_mouseDeltaY = 0;
+	return value;
+}
+
+int Window::GetMouseWheel()
+{
+	int value = _mouseWheel;
+	_mouseWheel = 0;
+
+	return value;
 }

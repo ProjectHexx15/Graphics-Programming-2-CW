@@ -42,9 +42,6 @@
     <ClInclude Include="ObjectLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleEmitter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -73,6 +70,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="References.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnviornmentMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -137,12 +137,33 @@
     <ClCompile Include="stb_image.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EnviornmentMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Assets\Shaders\test.frag">
+    <None Include="..\Assets\Shaders\cupcake.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\Assets\Shaders\test.vert">
+    <None Include="..\Assets\Shaders\cupcake.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\crystal_apple.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\crystal_apple.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\skybox.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\skybox.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\kitty.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Assets\Shaders\kitty.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

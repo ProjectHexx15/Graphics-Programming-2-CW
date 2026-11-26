@@ -41,6 +41,10 @@ void Application::Input()
 {
 	_window->PollEvents();
 
+	_scene->ProcessMouseMotion(_window->GetMouseDeltaX(), _window->GetMouseDeltaY());
+
+	_scene->ProcessMouseWheel(_window->GetMouseWheel());
+
 	if (_window->ShouldClose())
 	{
 		_isRunning = false;

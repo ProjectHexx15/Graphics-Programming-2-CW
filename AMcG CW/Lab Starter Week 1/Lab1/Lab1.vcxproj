@@ -15,12 +15,12 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EnviornmentMap.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ObjectLoader.h" />
     <ClInclude Include="obj_loader.h" />
-    <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="References.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
@@ -37,6 +37,7 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EnviornmentMap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -55,8 +56,14 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Assets\Shaders\test.frag" />
-    <None Include="..\Assets\Shaders\test.vert" />
+    <None Include="..\Assets\Shaders\cupcake.frag" />
+    <None Include="..\Assets\Shaders\cupcake.vert" />
+    <None Include="..\Assets\Shaders\crystal_apple.frag" />
+    <None Include="..\Assets\Shaders\crystal_apple.vert" />
+    <None Include="..\Assets\Shaders\skybox.frag" />
+    <None Include="..\Assets\Shaders\skybox.vert" />
+    <None Include="..\Assets\Shaders\kitty.frag" />
+    <None Include="..\Assets\Shaders\kitty.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D246FDDF-B30E-4F14-80F8-095FA4E04ECF}</ProjectGuid>

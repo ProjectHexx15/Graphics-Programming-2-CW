@@ -2,7 +2,11 @@
 
 #include <memory>
 
+class Model;
+class Material;
 class Camera;
+
+#include "Transform.h"
 
 class Entity
 {

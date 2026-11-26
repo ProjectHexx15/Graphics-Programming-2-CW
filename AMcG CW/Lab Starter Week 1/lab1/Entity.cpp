@@ -22,8 +22,6 @@ Transform& Entity::GetTransform()
 
 void Entity::Draw(const Camera& camera) const
 {
-    std::cout << "Drawing Entity" << std::endl;
-
     _material->Bind();
 
     auto shader = _material->GetShader();
@@ -31,6 +29,7 @@ void Entity::Draw(const Camera& camera) const
     shader->SetUniformMat4("u_Model", _transform.GetModel());
     shader->SetUniformMat4("u_View", camera.GetView());
     shader->SetUniformMat4("u_Projection", camera.GetProjection());
+    shader->SetUniformVec3("u_CameraPos", camera.GetPosition());
 
     _model->Draw();
 }

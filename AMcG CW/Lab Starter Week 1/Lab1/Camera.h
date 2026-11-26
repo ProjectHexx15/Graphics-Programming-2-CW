@@ -17,6 +17,9 @@ public:
 
 	glm::vec3 GetPosition() const;
 
+	void Rotate(float xOffset, float yOffset);
+	void Zoom(float amount);
+
 private:
 	float _radius;
 	float _angle;
@@ -24,5 +27,8 @@ private:
 	glm::vec3 _target;
 
 	glm::mat4 _projection;
+
+	float _yaw = 0.0f;
+	float _pitch = 10.0f;
 
 };

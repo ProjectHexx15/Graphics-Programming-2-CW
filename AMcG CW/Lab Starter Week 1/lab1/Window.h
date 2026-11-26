@@ -23,12 +23,22 @@ public:
     int GetWidth() const;
     int GetHeight() const;
 
+    int GetMouseDeltaX();
+    int GetMouseDeltaY();
+    int GetMouseWheel();
+
 private:
     SDL_Window* _window;
 	SDL_GLContext _context;
 
+
     int _width;
     int _height;
+
+    int _mouseWheel = 0;
+
+    int _mouseDeltaX = 0;
+    int _mouseDeltaY = 0;
 
     bool _shouldClose = false;
 
