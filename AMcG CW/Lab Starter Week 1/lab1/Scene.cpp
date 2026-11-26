@@ -73,7 +73,8 @@ void Scene::Init()
 
     _cupcake = std::make_shared<Entity>(cupcakeModel, cupcakeMaterial);
     _cupcake->GetTransform().SetScale(glm::vec3(1.0f));
-    _cupcake->GetTransform().SetPos(glm::vec3(2.0f, 0.0f, 0.0f));
+    _cupcake->GetTransform().SetPos(glm::vec3(0.0f, 0.0f, 4.0f));
+    _cupcake->GetTransform().SetRot(glm::vec3(0.0f, 45.0f, 0.0f));
 
     AddEntity(_cupcake);
 
@@ -81,7 +82,7 @@ void Scene::Init()
 
 void Scene::Update(float deltaTime)
 {
-    float target = _explode ? 1.5f : 5.0f;
+    float target = _explode ? 1.5f : 0.0f;
 
     _explosionAmount += (target - _explosionAmount) * deltaTime * 0.5f;
 

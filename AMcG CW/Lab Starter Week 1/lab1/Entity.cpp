@@ -33,6 +33,7 @@ void Entity::Draw(const Camera& camera, float explosionAmount) const
     shader->SetUniformVec3("u_CameraPos", camera.GetPosition());
     shader->SetUniform1f("u_Time", SDL_GetTicks() / 500.0f);
     shader->SetUniform1f("u_ExplosionAmount", explosionAmount);
+    shader->SetUniformVec3("u_ObjectCenter", _transform.GetPos());
 
     _model->Draw();
 }

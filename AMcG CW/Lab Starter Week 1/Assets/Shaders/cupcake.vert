@@ -4,6 +4,7 @@ layout(location = 0) in vec3 aPosition;
 layout(location = 1) in vec2 aTexCoord;
 layout(location = 2) in vec3 aNormal;
 
+
 out VS_OUT
 {
     vec2 TexCoord;
@@ -22,5 +23,5 @@ void main()
 
     vs_out.TexCoord = aTexCoord;
 
-    gl_Position = u_Projection * u_View *worldPos;
+    gl_Position = u_Projection * u_View * worldPos;
 }
