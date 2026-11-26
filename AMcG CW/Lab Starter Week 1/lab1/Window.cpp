@@ -88,10 +88,16 @@ void Window::PollEvents()
 			break;
 
 		case SDL_KEYDOWN:
-			if (event.key.keysym.sym == SDLK_ESCAPE)
+			if (event.key.repeat == 0 && event.key.keysym.sym == SDLK_ESCAPE)
 			{
 				_shouldClose = true;
 			}
+
+			if (event.key.repeat == 0 && event.key.keysym.sym == SDLK_e)
+			{
+				_ePressed = true;
+			}
+
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -159,5 +165,12 @@ int Window::GetMouseWheel()
 	int value = _mouseWheel;
 	_mouseWheel = 0;
 
+	return value;
+}
+
+bool Window::IsEPressed()
+{
+	bool value = _ePressed;
+	_ePressed = false;
 	return value;
 }

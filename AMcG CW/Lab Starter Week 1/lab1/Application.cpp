@@ -19,6 +19,7 @@ void Application::Init()
 
 	_scene = new Scene();
 	_scene->Init();
+	_lastFrameTime = SDL_GetTicks() / 1000.0f;
 
 	_isRunning = true;
 }
@@ -29,6 +30,11 @@ void Application::Run()
 
 	while (_isRunning)
 	{
+		float currentTime = SDL_GetTicks() / 1000.0f;
+
+		_deltaTime = currentTime - _lastFrameTime;
+		_lastFrameTime = currentTime;
+
 		Input();
 		Update();
 		Render();
@@ -40,6 +46,11 @@ void Application::Run()
 void Application::Input()
 {
 	_window->PollEvents();
+
+	if (_window->IsEPressed())
+	{
+		_scene->ToggleExplosion();
+	}
 
 	_scene->ProcessMouseMotion(_window->GetMouseDeltaX(), _window->GetMouseDeltaY());
 

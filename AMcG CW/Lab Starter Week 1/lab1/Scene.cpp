@@ -42,24 +42,50 @@ void Scene::Init()
     _skybox = std::make_shared<Skybox>(environment);
 
     ResourceManager::LoadShader("Gem", "..\\Assets\\Shaders\\crystal_apple.vert", "..\\Assets\\Shaders\\crystal_apple.frag");
+    ResourceManager::LoadShader("Cupcake", "..\\Assets\\Shaders\\cupcake.vert", "..\\Assets\\Shaders\\cupcake.frag", "..\\Assets\\Shaders\\cupcake.geom");
+
     ResourceManager::LoadTexture("GemTexture", "..\\Assets\\Textures\\GemTexture.png");
+    ResourceManager::LoadTexture("CupcakeTexture", "..\\Assets\\Textures\\GemTexture.png");
+
     ResourceManager::LoadModel("Gem", "..\\Assets\\Objects\\gem.obj");
+    ResourceManager::LoadModel("Cupcake", "..\\Assets\\Objects\\gem.obj");
+
 
     auto gemShader =  ResourceManager::GetShader("Gem");
     auto gemTexture = ResourceManager::GetTexture("GemTexture");
     auto gemModel = ResourceManager::GetModel("Gem");
     auto gemMaterial = std::make_shared<Material>(gemShader, gemTexture);
+    ResourceManager::AddMaterial("gemMaterial", gemMaterial);
 
     gemMaterial->SetEnvironmentMap(environment->GetCubemap());
 
     _gem = std::make_shared<Entity>(gemModel, gemMaterial);
     _gem->GetTransform().SetScale(glm::vec3(1.0f));
-
+  
     AddEntity(_gem);
+
+
+    cupcakeShader = ResourceManager::GetShader("Cupcake");
+    auto cupcakeTexture = ResourceManager::GetTexture("CupcakeTexture");
+    auto cupcakeModel = ResourceManager::GetModel("Cupcake");
+    cupcakeMaterial = std::make_shared<Material>(cupcakeShader, cupcakeTexture);
+    ResourceManager::AddMaterial("cupcakeMaterial", cupcakeMaterial);
+
+    _cupcake = std::make_shared<Entity>(cupcakeModel, cupcakeMaterial);
+    _cupcake->GetTransform().SetScale(glm::vec3(1.0f));
+    _cupcake->GetTransform().SetPos(glm::vec3(2.0f, 0.0f, 0.0f));
+
+    AddEntity(_cupcake);
+
 }
 
 void Scene::Update(float deltaTime)
 {
+    float target = _explode ? 1.5f : 5.0f;
+
+    _explosionAmount += (target - _explosionAmount) * deltaTime * 0.5f;
+
+
 	if (_camera)
 	{
 		_camera->Update(deltaTime);
@@ -68,29 +94,31 @@ void Scene::Update(float deltaTime)
 
 void Scene::Render()
 {
-    glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+
+    if (_skybox)
+    {
+        _skybox->Draw(*_camera);
+    }
 
     glEnable(GL_BLEND);
-
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    for (const auto& entity : _entitties)
+    {
+        entity->Draw(*_camera, _explosionAmount);
+    }
+
+    glDisable(GL_BLEND);
 
     if (!_camera)
     {
         return;
     }
 
-    for (const auto& entity : _entitties)
-    {
-        entity->Draw(*_camera);
-    }
 
-    glDisable(GL_BLEND);
-
-    if (_skybox)
-    {
-        _skybox->Draw(*_camera);
-    }
 
     std::cout << "Entities: " << _entitties.size() << std::endl;
 }
@@ -134,4 +162,9 @@ void Scene::ProcessMouseWheel(float delta)
     {
         _camera->Zoom(delta);
     }
+}
+
+void Scene::ToggleExplosion()
+{
+    _explode = !_explode;
 }

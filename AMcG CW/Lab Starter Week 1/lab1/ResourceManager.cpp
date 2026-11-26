@@ -18,6 +18,11 @@ void ResourceManager::LoadShader(const std::string& name, const std::string& ver
     _shaders[name] = std::make_shared<Shader>(vertex.c_str(), fragment.c_str());
 }
 
+void ResourceManager::LoadShader(const std::string& name, const std::string& vertex, const std::string& fragment, const std::string& geometry)
+{
+    _shaders[name] = std::make_shared<Shader>(vertex.c_str(), fragment.c_str(), geometry.c_str());
+}
+
 std::shared_ptr<Shader> ResourceManager::GetShader(const std::string& name)
 {
     auto it = _shaders.find(name);

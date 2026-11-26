@@ -27,6 +27,8 @@ public:
     int GetMouseDeltaY();
     int GetMouseWheel();
 
+    bool IsEPressed();
+
 private:
     SDL_Window* _window;
 	SDL_GLContext _context;
@@ -40,6 +42,7 @@ private:
     int _mouseDeltaX = 0;
     int _mouseDeltaY = 0;
 
+    bool _ePressed = false;
     bool _shouldClose = false;
 
     void SetAttributes();

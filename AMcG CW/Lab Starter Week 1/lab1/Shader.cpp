@@ -47,20 +47,49 @@ GLint Shader::GetUniformLocation(const std::string& name) const
 
 void Shader::SetUniform1i(const std::string& name, int value) const
 {
+    GLint location = glGetUniformLocation(_ID, name.c_str());
+
+    if (location == -1)
+    {
+        return;
+    }
+
     glUniform1i(GetUniformLocation(name), value);
 }
 
 void Shader::SetUniform1f(const std::string& name, float value) const
 {
+    GLint location = glGetUniformLocation(_ID, name.c_str());
+
+    if (location == -1)
+    {
+        return;
+    }
+
+
     glUniform1f(GetUniformLocation(name), value);
 }
 
 void Shader::SetUniformVec3(const std::string& name, const glm::vec3& value) const
 {
+    GLint location = glGetUniformLocation(_ID, name.c_str());
+
+    if (location == -1)
+    {
+        return;
+    }
+
     glUniform3f(GetUniformLocation(name), value.x, value.y, value.z);
 }
 
 void Shader::SetUniformMat4(const std::string& name, const glm::mat4& value) const
 {
+    GLint location = glGetUniformLocation(_ID, name.c_str());
+
+    if (location == -1)
+    {
+        return;
+    }
+
     glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value));
 }

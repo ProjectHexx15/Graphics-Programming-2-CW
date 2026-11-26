@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\Shaders\cupcake.frag" />
+    <None Include="..\Assets\Shaders\cupcake.geom" />
     <None Include="..\Assets\Shaders\cupcake.vert" />
     <None Include="..\Assets\Shaders\crystal_apple.frag" />
     <None Include="..\Assets\Shaders\crystal_apple.vert" />

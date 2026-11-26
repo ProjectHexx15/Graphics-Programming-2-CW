@@ -16,7 +16,7 @@ public:
 
     Transform& GetTransform();
 
-    void Draw(const Camera& camera) const;
+    void Draw(const Camera& camera, float explosionAmount = 0.0f) const;
 
 private:
 

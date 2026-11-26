@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "Transform.h"
 
+#include <SDL/SDL.h>
 #include <iostream>
 
 // a renderable object within the scene
@@ -20,7 +21,7 @@ Transform& Entity::GetTransform()
     return _transform;
 }
 
-void Entity::Draw(const Camera& camera) const
+void Entity::Draw(const Camera& camera, float explosionAmount) const
 {
     _material->Bind();
 
@@ -30,6 +31,8 @@ void Entity::Draw(const Camera& camera) const
     shader->SetUniformMat4("u_View", camera.GetView());
     shader->SetUniformMat4("u_Projection", camera.GetProjection());
     shader->SetUniformVec3("u_CameraPos", camera.GetPosition());
+    shader->SetUniform1f("u_Time", SDL_GetTicks() / 500.0f);
+    shader->SetUniform1f("u_ExplosionAmount", explosionAmount);
 
     _model->Draw();
 }

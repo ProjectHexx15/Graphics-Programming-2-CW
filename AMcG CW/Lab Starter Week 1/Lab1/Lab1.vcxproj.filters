@@ -166,5 +166,8 @@
     <None Include="..\Assets\Shaders\kitty.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\Assets\Shaders\cupcake.geom">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

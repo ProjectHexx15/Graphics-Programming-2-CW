@@ -14,6 +14,7 @@ class ResourceManager
 public:
 
     static void LoadShader(const std::string& name, const std::string& vertex, const std::string& fragment);
+    static void LoadShader(const std::string& name, const std::string& vertex, const std::string& fragment, const std::string& geometry);
     static std::shared_ptr<Shader>GetShader(const std::string& name);
 
     static void LoadTexture(const std::string& name, const std::string& path);
