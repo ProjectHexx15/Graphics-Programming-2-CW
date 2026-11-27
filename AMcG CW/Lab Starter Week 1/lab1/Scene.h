@@ -50,6 +50,10 @@ private:
     std::shared_ptr<Shader> cupcakeShader;
     std::shared_ptr<Entity> _cupcake;
 
+    std::shared_ptr<Material> kittyMaterial;
+    std::shared_ptr<Shader> kittyShader;
+    std::shared_ptr<Entity> _kitty;
+
     std::shared_ptr<Camera> _camera;
     std::shared_ptr<Skybox> _skybox;
 };

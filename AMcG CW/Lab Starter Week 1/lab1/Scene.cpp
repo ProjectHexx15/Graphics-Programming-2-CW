@@ -43,12 +43,15 @@ void Scene::Init()
 
     ResourceManager::LoadShader("Gem", "..\\Assets\\Shaders\\crystal_apple.vert", "..\\Assets\\Shaders\\crystal_apple.frag");
     ResourceManager::LoadShader("Cupcake", "..\\Assets\\Shaders\\cupcake.vert", "..\\Assets\\Shaders\\cupcake.frag", "..\\Assets\\Shaders\\cupcake.geom");
+    ResourceManager::LoadShader("Kitty", "..\\Assets\\Shaders\\kitty.vert", "..\\Assets\\Shaders\\kitty.frag");
 
     ResourceManager::LoadTexture("GemTexture", "..\\Assets\\Textures\\GemTexture.png");
-    ResourceManager::LoadTexture("CupcakeTexture", "..\\Assets\\Textures\\GemTexture.png");
+    ResourceManager::LoadTexture("CupcakeTexture", "..\\Assets\\Textures\\CupcakeTexture.png");
+    ResourceManager::LoadTexture("KittyTexture", "..\\Assets\\Textures\\CupcakeTexture.png");
 
     ResourceManager::LoadModel("Gem", "..\\Assets\\Objects\\gem.obj");
-    ResourceManager::LoadModel("Cupcake", "..\\Assets\\Objects\\gem.obj");
+    ResourceManager::LoadModel("Cupcake", "..\\Assets\\Objects\\cupcake.obj");
+    ResourceManager::LoadModel("Kitty", "..\\Assets\\Objects\\cupcake.obj");
 
 
     auto gemShader =  ResourceManager::GetShader("Gem");
@@ -73,16 +76,29 @@ void Scene::Init()
 
     _cupcake = std::make_shared<Entity>(cupcakeModel, cupcakeMaterial);
     _cupcake->GetTransform().SetScale(glm::vec3(1.0f));
-    _cupcake->GetTransform().SetPos(glm::vec3(0.0f, 0.0f, 4.0f));
+    _cupcake->GetTransform().SetPos(glm::vec3(0.0f, 0.0f, 2.0f));
     _cupcake->GetTransform().SetRot(glm::vec3(0.0f, 45.0f, 0.0f));
 
     AddEntity(_cupcake);
+
+    kittyShader = ResourceManager::GetShader("Kitty");
+    auto kittyTexture = ResourceManager::GetTexture("KittyTexture");
+    auto kittyModel = ResourceManager::GetModel("Kitty");
+    kittyMaterial = std::make_shared<Material>(kittyShader, kittyTexture);
+    ResourceManager::AddMaterial("kittyMaterial", kittyMaterial);
+
+    _kitty = std::make_shared<Entity>(kittyModel, kittyMaterial);
+    _kitty->GetTransform().SetScale(glm::vec3(1.0f));
+    _kitty->GetTransform().SetPos(glm::vec3(0.0f, 0.0f, -2.0f));
+    _kitty->GetTransform().SetRot(glm::vec3(0.0f, 45.0f, 0.0f));
+
+    AddEntity(_kitty);
 
 }
 
 void Scene::Update(float deltaTime)
 {
-    float target = _explode ? 1.5f : 0.0f;
+    float target = _explode ? 0.35f : 0.0f;
 
     _explosionAmount += (target - _explosionAmount) * deltaTime * 0.5f;
 
@@ -96,21 +112,25 @@ void Scene::Update(float deltaTime)
 void Scene::Render()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
 
     if (_skybox)
     {
         _skybox->Draw(*_camera);
     }
 
+    for (const auto& entity : _entitties)
+    {
+        if (entity != _gem)
+        {
+            entity->Draw(*_camera, _explosionAmount);
+        }
+    }
+
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    for (const auto& entity : _entitties)
-    {
-        entity->Draw(*_camera, _explosionAmount);
-    }
+    _gem->Draw(*_camera, _explosionAmount);
 
     glDisable(GL_BLEND);
 
